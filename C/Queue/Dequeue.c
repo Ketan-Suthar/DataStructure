@@ -9,8 +9,8 @@ void input_dequeue(void);
 void ouptu_dequeue(void);
 void insert_left(void);
 void insert_right(void);
-int delete_left(void);
-int delete_right(void);
+void delete_left(void);
+void delete_right(void);
 void display(void);
 
 
@@ -102,7 +102,6 @@ void ouptu_dequeue()
 				break;	
 		}
 	}while(op!=5);
-
 }
 
 void insert_right()
@@ -150,7 +149,7 @@ void insert_left()
 	else
 	{
 		if(left==0)
-			right=MAX-1;
+			left=MAX-1;
 		else
 			left-=1;
 	}
@@ -202,9 +201,9 @@ void delete_right()
 void display()
 {
 	int front=left,rear=right;
-	if(left=-1)
+	if(left==-1)
 	{
-		printf("\n----Dequeue Is Empty----");
+		printf("\n----Dequeue Is Empty----\n");
 		return;
 	}
 	printf("\n***Deueue***\n");
