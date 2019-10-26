@@ -110,10 +110,10 @@ class linkList
 				if(!isVisted[current->data])
 				{
 					//cout<<"onc";
-					isVisted[current->data]==true;
+					isVisted[current->data]=true;
 					q.push(current->data);
 
-					cout<<" in Dis "<<q.peek()<<current->data<<isVisted[2];
+					//cout<<" in Dis "<<q.peek()<<current->data<<isVisted[2];
 				}
 				current = current->next;
 			}
@@ -162,12 +162,12 @@ class graph
 		{
 			int f = q.peek();
 			q.pop();
-			cout<<"\nin while f "<<f;
+			cout<<" -> "<<f;
 
 			list[f].displayBFSList(q,isVisted,nVert);
 			//cout<<q.peek()<<isVisted[q.peek()];
 		}
-		cout<<"end "<<isVisted[1]; 	
+		//cout<<"end "<<isVisted[1]; 	
 	} 
 };
 
@@ -178,18 +178,18 @@ int main()
 
 	graph g;
 	vector<int> adj[V]; 
-	for(int i=0;i<5; ++i)
+	for(int i=0;i<4; ++i)
 		g.addVertex(i);
+	g.addEdge(0, 2); 
+	g.addEdge(2, 0); 
 	g.addEdge(0, 1); 
-	g.addEdge(0, 4); 
-	g.addEdge(1, 2); 
-	g.addEdge( 1, 3); 
-	g.addEdge( 1, 4); 
+	g.addEdge( 1, 2); 
 	g.addEdge( 2, 3); 
-	g.addEdge( 3, 4); 
-	g.addEdge(1,0); 
-	g.list[1].displayList();
-	g.printGraphBFS(1); 
+	g.addEdge( 3, 3); 
+	//g.addEdge( 3, 4); 
+	//g.addEdge(1,0); 
+	//g.list[1].displayList();
+	g.printGraphBFS(2); 
 	
 	return 0; 
 } 

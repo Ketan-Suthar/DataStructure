@@ -1,6 +1,6 @@
 // Cpp program to demonstrate insert operation in binary search tree
-#include<stdio.h> 
-#include<stdlib.h> 
+#include<stdio.h>
+#include<stdlib.h>
 #include <iostream>
 using namespace std;
 struct node 
