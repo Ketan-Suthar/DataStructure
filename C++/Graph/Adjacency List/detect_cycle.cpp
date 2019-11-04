@@ -8,49 +8,7 @@ struct linkNode
 	int data;
 	linkNode* next;
 };
-class mystack
-{
-public:
 
-	int s[MAX_SIZE];
-	int top;
-
-	mystack()
-	{
-		top = -1;
-	}
-	void push(const int v)
-	{
-		if(top == MAX_SIZE-1)
-			cout<<"\n stack is full";
-		else
-			s[++top] = v;
-	}
-	int peek()
-	{
-		if(top == -1)
-		{
-			//cout<<"\n stack is empty!!";
-			return -1;
-		}
-		else
-			return s[top];
-	}
-	void pop()
-	{
-		if(top == -1)
-			cout<<"\n stack is empty!!";
-		else
-			--top;
-	}
-	const bool isEmpty()
-	{
-		if(top == -1)
-			return true;
-		else
-			return false;
-	}
-};
 
 //typedef linkNode node;
 class linkList
@@ -173,7 +131,6 @@ class graph
 	// 	printGraphDFS(s,isVisted);
 	// }
 };
-
 
 int main() 
 { 

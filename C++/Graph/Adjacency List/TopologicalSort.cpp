@@ -8,6 +8,49 @@ struct linkNode
 	int data;
 	linkNode* next;
 };
+class mystack
+{
+public:
+
+	int s[MAX_SIZE];
+	int top;
+
+	mystack()
+	{
+		top = -1;
+	}
+	void push(const int v)
+	{
+		if(top == MAX_SIZE-1)
+			cout<<"\n stack is full";
+		else
+			s[++top] = v;
+	}
+	int peek()
+	{
+		if(top == -1)
+		{
+			//cout<<"\n stack is empty!!";
+			return -1;
+		}
+		else
+			return s[top];
+	}
+	void pop()
+	{
+		if(top == -1)
+			cout<<"\n stack is empty!!";
+		else
+			--top;
+	}
+	const bool isEmpty()
+	{
+		if(top == -1)
+			return true;
+		else
+			return false;
+	}
+};
 
 //typedef linkNode node;
 class linkList
@@ -46,28 +89,15 @@ class linkList
 				current = current->next;
 			}
 		}
-		void displayDFSList(linkList list[], bool isVisted[])
+		void TopologicalSortUtil(linkList list[], bool isVisted[], mystack &s)
 		{
 			struct linkNode* current = first;
-			//current = current->next;
-			//cout<<"\n..";
-			// for(int i=0;i<5;++i)
-			// 	cout<<"\n"<<i<<" : "<<isVisted[i];
-			// cout<<"\n";
+			isVisted[current->data] = true;
 			for(;current!=NULL;current = current->next)
-			{
 				if(!isVisted[current->data])
-				{
-					isVisted[current->data] = true;
-					cout<<current->data<<" -> ";
-					list[current->data].displayDFSList(list,isVisted);
-				}
-				else
-				{
-					// cout<<"\n"<<current->data<<"\n";
-					continue;
-				}
-			}
+					list[current->data].TopologicalSortUtil(list,isVisted, s);
+
+			s.push(first->data);	
 		}
 };
 class graph
@@ -100,50 +130,48 @@ class graph
 	// A utility function to print the adjacency list 
 	// representation of graph 
 
-	void printGraphDFS(int s,bool isVisted[])
+	void TopologicalSort()
 	{
-		isVisted[s] = true;
-
-		cout<<"start from : "<<s<<" -> ";
-		for(int i=s;(i%(nVert))!=s-1;++i)
-			list[i%(nVert)].displayDFSList(list,isVisted); 
-	}
-
-	void DFS(int s) 
-	{ 
+		mystack s;
 		bool  *isVisted = new bool[nVert];
 		for(int i=0; i<nVert; ++i)
 			isVisted[i] = false;
+		
+		for(int i=0;i<nVert;++i)
+			if(isVisted[i]==false)
+				list[i].TopologicalSortUtil(list, isVisted, s);
 
-		printGraphDFS(s,isVisted);
+		cout<<"\nTopological order is: ";
+		while(s.isEmpty()==false)
+		{
+			cout<<s.peek()<<" ";
+			s.pop();
+		}	
 	}
 };
 
 
 int main() 
 { 
-	int V = 5; 
+	int V = 6; 
 
 	graph g;
 	vector<int> adj[V]; 
-	for(int i=0;i<5; ++i)
+	for(int i=0;i<6; ++i)
 		g.addVertex(i);
-	g.addEdge(0, 2); 
-	g.addEdge(2, 0); 
-	g.addEdge(0, 1); 
-	g.addEdge( 1, 2); 
-	g.addEdge( 2, 3); 
-	g.addEdge( 3, 3); 
-	g.addEdge(4, 3); 
-	//g.addEdge(1,0); 
-	//g.list[1].displayList();
-	g.DFS(2); 
-	for(int i=0;i<5;++i)
+
+    g.addEdge(5, 2); 
+    g.addEdge(5, 0); 
+    g.addEdge(4, 0); 
+    g.addEdge(4, 1); 
+    g.addEdge(2, 3); 
+    g.addEdge(3, 1); 
+
+	g.TopologicalSort(); 
+	for(int i=0;i<V;++i)
 	{
 		cout<<"\n "<<i<<" : ";
 		g.list[i].displayList();
 	}
-
-	
 	return 0; 
 } 
