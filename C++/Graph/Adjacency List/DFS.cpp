@@ -125,7 +125,7 @@ int main()
 	int V = 5; 
 
 	graph g;
-	vector<int> adj[V]; 
+	
 	for(int i=0;i<5; ++i)
 		g.addVertex(i);
 	g.addEdge(0, 2); 
