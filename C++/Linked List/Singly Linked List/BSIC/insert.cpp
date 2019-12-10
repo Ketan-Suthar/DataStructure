@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h> 
 using namespace std; 
 
@@ -106,8 +105,8 @@ int main()
 	while(1)
 	{
 		cout<<"\n===MENU===\n";
-		cout<<"1. append (insert at beginning)\n";
-		cout<<"2. push (insert at last)\n";
+		cout<<"1. append (insert at last)\n";
+		cout<<"2. push (insert at first)\n";
 		cout<<"3. inset after N number\n";
 		
 		cout<<"4. display\n";
@@ -133,9 +132,8 @@ int main()
 		}
 	}
 
-	
 	cout<<"Created Linked list is: "; 
 	printList(head); 
-	
+
 	return 0; 
 }  
