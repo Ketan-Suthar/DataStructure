@@ -85,7 +85,7 @@ Node* insert(Node* node, int key)
 // Driver program to test above function 
 int main() 
 { 
-	int key = 78; //Key to be searched in BST 
+	int key; //Key to be searched in BST 
 
 /* Let us create following BST 
 			50 
@@ -121,8 +121,11 @@ int main()
 	Node* pre = NULL, *suc = NULL; 
 	inorderTraversal(root);
 
-	findPreSuc(root, pre, suc, 87); //key 78
-	if (pre != NULL) 
+	cout<<"\nfind value to find successor and predecessor: ";
+	cin>>key;
+
+	findPreSuc(root, pre, suc, key);
+	if (pre != NULL)
 	cout << "\nPredecessor is " << pre->key << endl; 
 	else
 	cout << "\nNo Predecessor"; 

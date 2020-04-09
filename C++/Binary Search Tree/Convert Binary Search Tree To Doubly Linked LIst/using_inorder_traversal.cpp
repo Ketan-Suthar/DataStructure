@@ -126,7 +126,7 @@ int main(int argc, char const *argv[])
 				displayDLL(head);
 				break;
 		}
-	}while(ch!=5);
+	}while(ch!=4);
 
 	return 0;
 }

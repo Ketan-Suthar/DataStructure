@@ -8,18 +8,18 @@ typedef struct treeNode
 	treeNode *left;
 	treeNode *right;
 	treeNode *parent;
-}node;
+}Node;
 
-node *newNode(int item) 
+Node *createNewNode(int item) 
 { 
-	node *temp = (node *)malloc(sizeof(node)); 
+	Node *temp = (Node *)malloc(sizeof(Node)); 
 	temp->key = item; 
 	temp->left = temp->right = temp->parent = nullptr; 
 	return temp; 
 } 
 
 // A utility function to do inorder traversal of BST 
-void inorder(node *root) 
+void inorder(Node *root) 
 { 
 	if (root != nullptr) 
 	{ 
@@ -28,9 +28,9 @@ void inorder(node *root)
 		inorder(root->right);
 	} 
 }
-node *search(node *root,int item)
+Node *search(Node *root,int item)
 {
-	node *temp = root;
+	Node *temp = root;
 	while(temp!=nullptr && item!=temp->key)
 	{
 		if(item < temp->key)
@@ -40,11 +40,11 @@ node *search(node *root,int item)
 	}
 	return temp;
 }
-node * insert(node *root,int item)
+Node * insert(Node *root,int item)
 {
-	node *newnode = newNode(item);
-	node *y = nullptr;
-	node *x = root;
+	Node *newNode = createNewNode(item);
+	Node *y = nullptr;
+	Node *x = root;
 	while(x!=nullptr)
 	{
 		y = x;
@@ -53,24 +53,24 @@ node * insert(node *root,int item)
 		else
 			x = x->right;
 	}
-	newnode->parent = y;
+	newNode->parent = y;
 	if(y == nullptr)
-		return newnode;
+		return newNode;
 	else if(item < y->key)
-		y->left = newnode;
+		y->left = newNode;
 	else
-		y->right = newnode;
-	return newnode;
+		y->right = newNode;
+	return newNode;
 }
-node *minimum(node *n)
+Node *minimum(Node *n)
 {
-	node *temp = n;
+	Node *temp = n;
 	if(temp)
 		while(temp->left!=nullptr)
 			temp = temp->left;
 	return temp;
 }
-void transplant(node *root,node *u,node *v)
+void transplant(Node *root,Node *u,Node *v)
 {
 	if(u->parent == nullptr)
 		root = v;
@@ -81,9 +81,9 @@ void transplant(node *root,node *u,node *v)
 	if(v != nullptr)
 		v->parent = u->parent;
 }
-void deletenumber(node *root,int item)
+void deletenumber(Node *root,int item)
 {
-	node *z = search(root,item);
+	Node *z = search(root,item);
 	if(!z)
 		cout<<"oops! "<<item<<" is NOT PRESENT.";
 	else
@@ -94,7 +94,7 @@ void deletenumber(node *root,int item)
 			transplant(root,z,z->left);
 		else
 		{
-			node *y = minimum(z->right);
+			Node *y = minimum(z->right);
 			if(y->parent != z)
 			{
 				transplant(root,y,y->right);
@@ -110,11 +110,11 @@ void deletenumber(node *root,int item)
 int main(int argc, char const *argv[])
 {
 	int ch=1; 
-	node *root = nullptr; 
+	Node *root = nullptr; 
 	do
 	{
 		cout<<"\n===MAIN MENU===";
-		cout<<"\n1.insert node to BST";
+		cout<<"\n1.insert Node to BST";
 		cout<<"\n2.display BST";
 		cout<<"\n3.delete";
 		cout<<"\n4.Search";
@@ -125,7 +125,7 @@ int main(int argc, char const *argv[])
 		{
 			case 1:
 				int val;
-				cout<<"\nenter node value:: ";
+				cout<<"\nenter Node value:: ";
 				cin>>val;
 				if(root==nullptr)
 					root = insert(root, val);
@@ -133,7 +133,7 @@ int main(int argc, char const *argv[])
 					insert(root, val);
 				break;
 			case 2:
-				// print inoder traversal of the BST 
+				// print iNoder traversal of the BST 
 				cout<<"\nBST is:\n";
 				inorder(root);
 				break;
