@@ -1,14 +1,14 @@
 // C++ program to do range minimum query in O(1) time with 
 // O(n Log n) extra space and O(n Log n) preprocessing time 
 #include<bits/stdc++.h> 
-using namespace std; 
-#define MAX 500 
+using namespace std;
+#define MAX 500
 
 // lookup[i][j] is going to store index of minimum value in 
 // arr[i..j]. Ideally lookup table size should not be fixed and 
 // should be determined using n Log n. It is kept constant to 
 // keep code simple. 
-int lookup[MAX][MAX]; 
+int lookup[MAX][MAX];
 
 // Structure to represent a query range 
 struct Query 

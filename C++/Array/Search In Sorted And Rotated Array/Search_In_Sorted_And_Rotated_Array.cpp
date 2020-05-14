@@ -94,7 +94,6 @@ int modifiedBinarySearch(const int arr[],int l, int r)
 
 		if (arr[mid] > arr[mid+1]) 
 			return mid;
-
 	
 		if (arr[l] > arr[mid]) 
 			return modifiedBinarySearch(arr, l, mid - 1); 

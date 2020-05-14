@@ -63,7 +63,7 @@ int findDiameter(Node *p)
 	int ldia = findDiameter(p->left);
 	int rdia = findDiameter(p->right);
 
-	int maxdia = max(lheight+rheight+1, max(ldia,rdia));
+	int maxdia = max(lheight+rheight, max(ldia,rdia));
 
 	return maxdia;
 }
