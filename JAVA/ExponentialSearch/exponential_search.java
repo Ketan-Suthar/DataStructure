@@ -1,6 +1,5 @@
 // Java	 program to find an element x in a 
 // sorted array using Exponential search. 
-
 import java.util.Arrays; 
 
 class ExponentialSearch
