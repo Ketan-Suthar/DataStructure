@@ -19,7 +19,7 @@ class minheap
 	public:
 		minheap(int);
 		inline int parent(int i)
-		{	return ((i+1)/2)-1;	}
+		{	return ((i+1)/2);	}
 
 		inline int left(int i)
 		{	return (2*i)+1;	}

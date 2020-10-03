@@ -1,37 +1,37 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-#define MAX 100001
-vector<int> arr[MAX], primes;
+#define SIZE 10000
+vector<int> adjList[SIZE+1];
 
-int dis[MAX];
-bool vis[MAX];
-int n,e,t;
+int dis[SIZE+1];
+bool isVisited[SIZE+1];
+std::vector<int> primes;
+int _distance[SIZE+1];
 
-bool isPrime(int temp)
+bool isPrime(int num)
 {
-	for(int i=2; i*i<=temp; i++)
-		if(temp%i==0)
-			return false;
+	for(int i=2; i*i<=num; ++i)
+		if(num%i == 0) return false;
 	return true;
 }
 
-bool isValid(int a,int b)
+bool isValidPath(int from, int to)
 {
-	int cnt=0;
-	while(a)
+	int differece = 0;
+	while(from > 0)
 	{
-		if((a%10) != (b%10))
-			++cnt;
-		a/=10;
-		b/=10;
+		if((from % 10) != (to % 10))
+			differece++;
+		from /= 10;
+		to /= 10;
 	}
-	if(cnt==1)
+	if(differece == 1)
 		return true;
 	return false;
 }
 
-void buildGraph()
+void generateGraph()
 {
 	for(int i=1000; i<=9999; i++)
 		if(isPrime(i))
@@ -40,59 +40,55 @@ void buildGraph()
 	for(int i=0; i<primes.size(); i++)
 		for(int j=i+1; j<primes.size(); j++)
 		{
-			int aa=primes[i];
-			int bb=primes[j];
-			if(isValid(aa,bb))
+			int from = primes[i], to = primes[j];
+			if(isValidPath(from, to))
 			{
-				arr[aa].push_back(bb);
-				arr[bb].push_back(aa);
+				adjList[from].push_back(to);
+				adjList[to].push_back(from);
 			}
 		}
 }
 
-
-void bfs(int src)
+void singleSourceShortestPath(int source)
 {
-	queue<int>q;
-	q.push(src);
-	vis[src]=1;
-	dis[src]=0;
-
+	queue<int> q;
+	q.push(source);
+	isVisited[source] = 1;
+	_distance[source] = 0;
 	while(!q.empty())
 	{
-		int node=q.front();
+		int currNode = q.front();
 		q.pop();
-		for(int child: arr[node])
-			if(vis[child]==0)
+		for(int child: adjList[currNode])
+			if(!isVisited[child])
 			{
 				q.push(child);
-				dis[child]=dis[node]+1;
-				vis[child]=1;
+				isVisited[child] = 1;
+				_distance[child] = _distance[currNode] + 1;
 			}
 	}
 }
 
-int main()
+
+int main(int argc, char const *argv[])
 {
-	ios_base::sync_with_stdio(false);
-	cin.tie(0);
-	cout.tie(0);
-	int a,b;
-	buildGraph();
+	int t;
 	cin>>t;
-	
+	generateGraph();
 	while(t--)
 	{
-		cin>>a>>b;
-		for(int i=1000;i<=9999; i++)
-			vis[i]=0, dis[i]=-1;
+		int source, destination;
+		cin>>source>>destination;
+		for(int i=0; i<=SIZE; i++)
+			_distance[i] = -1, isVisited[i] = 0;
 
-		bfs(a);
+		singleSourceShortestPath(source);
 
-		if(dis[b] == -1)
+		if(_distance[destination] == -1)
 			cout<<"Impossible";
 		else
-			cout<<dis[b];
-		cout<<endl;
+			cout<<_distance[destination];
+		cout<<'\n';
 	}
+	return 0;
 }

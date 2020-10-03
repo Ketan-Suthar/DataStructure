@@ -4,44 +4,52 @@ using namespace std;
 #define size 1000001
 #define endl "\n"
 
-vector<int> arr[size];
+vector<int> adjList[size];
 queue<int>q;
-int low[size], intime[size];
-bool vis[size];
-int n,e,t,a,b, timer;
+int lowestAncestor[size], intime[size];
+bool isVisited[size];
+int n,noOfEdges,t,source,destination, timer;
 
-void dfs(int node, int par)
+void findBridges(int node, int parent=-1)
 {
-	vis[node]=1;
-	low[node] = intime[node] = timer;
-	++timer;
+	isVisited[node] = 1;
+	intime[node] = lowestAncestor[node] = intime;
 
-	for(int child: arr[node])
+	for(int child: adjList[node])
 	{
-		if(child == par)
+		if(child == parent) // parent of node
 			continue;
-		if(vis[child]==0)
+		if(isVisited[child])
 		{
-			dfs(child, node);
-			
-			if(low[child] > intime[node])
-				cout<<node<<" -> "<<child<<" is bridge\n";
-
-			low[node] = min(low[node], low[child]);
+			//backedge found , update the lowest ancestor
+			lowestAncestor[node] = min(lowestAncestor[node], intime[child]);
 		}
 		else
-			low[node] = min(low[node], intime[child]);	
-		
+		{
+			//forward edge found
+			//not visited so call findbridge again
+			findbridge(child, node);
+
+			//if lowest ancestor of child if greater than intime of node
+			//then it is bridge means it has no other path
+			if(lowestAncestor[child] > intime[node])
+				cout<<node<<' - '<<child<<'\n';
+
+			//now node will also update its lowest ancestore from child
+			lowestAncestor[node] = min(lowestAncestor[node],
+					lowestAncestor[child]);
+		}
 	}
 }
 
-
 int main(int argc, char const *argv[])
 {
-	cin>>n>>e;
-	while(e--)
-		cin>>a>>b, arr[a].push_back(b), arr[b].push_back(a);
+	cin>>n>>noOfEdges;
+	while(noOfEdges--)
+		cin >> source >> destination,
+	adjList[source].push_back(destination),
+	adjList[destination].push_back(source);
 
-	dfs(1, -1);
+	findBridges(1);
 	return 0;
 }

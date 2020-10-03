@@ -28,25 +28,3 @@ void singleSourceShortestPath(int source)
 			}
 	}
 }
-
-int main()
-{
-	ios_base::sync_with_stdio(false);
-	cin.tie(0);
-	cout.tie(0);
-	cin>>t;
-	while(t--)
-	{
-		for(int i=0;i<SIZE+1; i++)
-			adjList[i].clear(), isVisited[i]=0, dis[i]=0;
-		cin>>n>>e;
-		while(e--)
-		{
-			cin>>a>>b;
-			adjList[a].push_back(b);
-			adjList[b].push_back(a);
-		}
-		singleSourceShortestPath(1);
-		cout<<dis[n]<<endl;
-	}
-}
