@@ -9,20 +9,19 @@ int main() {
 	    int n;
 	    cin>>n;
 	    int arr[n];
-	    for(int i=0;i<n;i++) cin>>arr[i];
-	    
-	    int pre[n]{0};
-	    pre[0] = arr[0];
-	    for(int i=1; i<n; i++) pre[i] = pre[i-1] + arr[i];
+	    int sum=0;
+	    for(int i=0;i<n;i++) cin>>arr[i], sum+=arr[i];
 	    if(n==1)
 	    {
 	        cout<<"1\n";
 	        continue;
 	    }
-	    int i=1;
+	    int i=0,currSum=0;
 	    for(; i<n; i++)
 	    {
-	        if(pre[i-1] == (pre[n-1] - pre[i])) break;
+	        int temp = sum - arr[i] - currSum;
+	        if(currSum == temp) break;
+	        currSum += arr[i];
 	    }
 	    if(i==n)
 	        cout<<"-1"<<'\n';
