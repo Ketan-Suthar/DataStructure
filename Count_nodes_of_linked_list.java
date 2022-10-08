@@ -26,7 +26,7 @@ Constraints:
 1 <= N <= 105
 1 <= value <= 103
 */
-lass Solution
+class Solution
 {
     //Function to count nodes of a linked list.
     public static int getCount(Node head)
